@@ -1,0 +1,23 @@
+body {
+    padding-top: 70px;
+    /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+.navbar-header {
+    float: left;
+    padding: 15px;
+    text-align: center;
+    width: 100%;
+}
+.navbar-brand {float:none;}
+
+#outside {
+
+}
+
+#inside {
+
+}
+
+h1 {
+  /*color: white;*/
+}
