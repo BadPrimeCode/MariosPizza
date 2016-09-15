@@ -1,4 +1,7 @@
 .DS_Store
+<<<<<<< HEAD
+=======
 *.log
 Thumbs.db
 node_modules/
+>>>>>>> 2c98c279989c959e4cb6824f28cf62ee75ce1b25
