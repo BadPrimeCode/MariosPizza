@@ -2,13 +2,21 @@ var express = require( 'express' );
 var app = express();
 var path = require( 'path' );
 var bodyParser= require( 'body-parser' );
-var urlencodedParser = bodyParser.urlencoded( {extended: false } );
+// var urlencodedParser = bodyParser.urlencoded( {extended: false } );
 var pg = require('pg');
-var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/mariospizza';
+var connectionString ='postgress://localhost:5432/marios_pizza';
 var port = process.env.PORT || 3030;
 
+//addFloor
+//add employee
+//currentFloor
+//currentEmployee
+//changeStatus
+//changeEmployee
+app.use(bodyParser.urlencoded( {extended: false } ));
+app.use(bodyParser.json());
+
 // static folder
-app.use( express.static( 'public' ) );
 
 // spin up server
 app.listen( port, function(){
@@ -18,5 +26,81 @@ app.listen( port, function(){
 // base url
 app.get( '/', function( req, res ){
   console.log( 'base url hit' );
-  res.sendFile( 'index.html' );
+  res.sendFile( path.resolve('public/index.html') );
 });
+app.use( express.static( 'public' ) );
+// gets
+
+app.get('/currentFloor', function(req,res){
+
+  pg.connect(connectionString, function(err, client, done){
+    if (err){
+      console.log(err);
+    }
+    else {
+      console.log('app.post/currentFloor connected');
+      var resultsArray=[];
+      var queryResults=client.query('SELECT floor.table_name, floor.capacity, employee.first_name, employee.last_name, floor.status FROM floor LEFT JOIN employee ON floor.server_id=employee.id');
+      queryResults.on('row',function(row){
+        resultsArray.push(row);
+        console.log(resultsArray);
+      });
+      queryResults.on('end',function(){
+        done();
+        return res.send(resultsArray);
+      }); // end queryResults.on('end')
+    }// end else
+  }); // end pg.connect
+}); // end app.get currentFloor
+
+app.get('/currentEmployee', function(req,res){
+
+  pg.connect(connectionString, function(err, client, done){
+    if (err){
+      console.log(err);
+    }
+    else {
+      console.log('app.post/currentEmployee connected');
+      var resultsArray=[];
+      var queryResults=client.query('SELECT first_name, last_name, id FROM employee');
+      queryResults.on('row',function(row){
+        resultsArray.push(row);
+        console.log(resultsArray);
+      });
+      queryResults.on('end',function(){
+        done();
+        return res.send(resultsArray);
+      }); // end queryResults.on('end')
+    }// end else
+  }); // end pg.connect
+}); // end app.get currentEmployee
+
+app.post('/addTable', function(req, res){
+  pg.connect(connectionString, function(err, client, done){
+    var data= req.body;
+    if (err){
+      console.log(err);
+    }
+    else {
+      console.log(data);
+      console.log('app.post/addTable connected');
+      client.query('INSERT INTO floor (table_name,capacity,server_id,status ) VALUES ($1,$2,$3,$4)',[data.table_name,data.capacity,data.server_id,data.status]);
+      res.sendStatus(200);
+    }//else
+  });//pg.connect
+});//app.post
+
+app.post('/addEmployee', function(req, res){
+  pg.connect(connectionString, function(err, client, done){
+    var data= req.body;
+    if (err){
+      console.log(err);
+    }
+    else {
+      console.log(data);
+      console.log('app.post/addEmployee connected');
+      client.query('INSERT INTO employee (first_name,last_name) VALUES ($1,$2)',[data.first_name,data.last_name]);
+      res.sendStatus(200);
+    }//else
+  });//pg.connect
+});//app.post
