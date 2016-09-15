@@ -1,3 +1,5 @@
+CREATEDB marios_pizza;
+
 CREATE TABLE employee (
 	id SERIAL PRIMARY KEY,
 	first_name VARCHAR(20),

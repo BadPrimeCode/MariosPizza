@@ -17,6 +17,18 @@ var createEmployee = function(){
   // update display
   listEmployees();
 }; // end createEmployee
+var fakeObject={
+  name:'bob',
+  capacity:12,
+  server_id:2,
+  status:clean};
+var testAjax= function(){
+  $.ajax({
+    type:'POST'
+    url: '/addTable'
+    data:fakeObject
+  });
+};
 
 var createTable = function(){
   console.log( 'in createTable' );
