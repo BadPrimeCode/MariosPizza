@@ -6,6 +6,7 @@ $(document).ready(function() {
     var tables = [];
     var employees = [];
 
+
     $('#createEmployee').on('click',function() {
         console.log('in createEmployee');
         // get user input
