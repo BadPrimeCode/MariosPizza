@@ -93,8 +93,27 @@ $(document).ready(function() {
       default:
       tables[index].status = 'empty';
     }
+
+    var objectToSend = {
+      new_status: tables[index].status,
+      table_name: tables[index].table_name
+    };
+
+    // Ajax call not quite working yet
+    // $.ajax({
+    //   type: 'POST',
+    //   url: '/changeStatus',
+    //   data: objectToSend,
+    //   success: function(data) {
+    //     console.log('get this back from server:', data);
+    //     // push into employees array
+    //     console.log(data);
+    //     // update display
+    //     listTables();
+    //   } // end success
+    // });
     // show tables on DOM
-    listTables();
+
   }; // end cycleStatus
 
   var listEmployees = function() {
@@ -171,6 +190,6 @@ $(document).ready(function() {
 
   }; // end listTables
 
-  // listEmployees();
-  // listTables();
+  listEmployees();
+  listTables();
 }); //end document ready

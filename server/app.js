@@ -135,7 +135,7 @@ app.post('/changeStatus', function(req, res){
     else {
       console.log(data);
       console.log('app.post/changeEmployee connected');
-      client.query('UPDATE floor SET status = ($1) WHERE id = ($2)',[data.new_status,data.table_id]);
+      client.query('UPDATE floor SET status = ($1) WHERE table_name = ($2)',[data.new_status,data.table_name]);
       res.sendStatus(200);
     }//else
   });//pg.connect
