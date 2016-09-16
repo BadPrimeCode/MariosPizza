@@ -37,3 +37,4 @@ Stretch goals:
 * reports per employee - click on an employee and display only his/her assigned tables
 * filter tables by status
 * add a "take out"
+* logic to choose employee by table capacity

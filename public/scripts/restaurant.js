@@ -38,12 +38,16 @@ $(document).ready(function() {
         // get user input
         var tableName = document.getElementById('nameIn').value;
         var tableCapacity = document.getElementById('capacityIn').value;
+        // lastAssigned++;
+        // if that's bigger than the length of array go back to one
+        //
+
         // table object for new table
         var newTable = {
             request: 'from client',
             'name': tableName,
             'capacity': tableCapacity,
-            'server': -1,
+            'server': lastAssigned,
             'status': 'empty'
         };
         // ajax call to post route
