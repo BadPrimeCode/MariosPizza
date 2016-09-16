@@ -13,7 +13,7 @@ var port = process.env.PORT || 3030;
 //currentEmployee
 //changeStatus
 //changeEmployee
-app.use(bodyParser.urlencoded( {extended: false } ));
+// app.use(bodyParser.urlencoded( {extended: false } ));
 app.use(bodyParser.json());
 
 // static folder
@@ -75,6 +75,8 @@ app.get('/currentEmployee', function(req,res){
   }); // end pg.connect
 }); // end app.get currentEmployee
 
+
+//add table to floor table
 app.post('/addTable', function(req, res){
   pg.connect(connectionString, function(err, client, done){
     var data= req.body;
@@ -88,8 +90,9 @@ app.post('/addTable', function(req, res){
       res.sendStatus(200);
     }//else
   });//pg.connect
-});//app.post
+});//app.post addTable
 
+//add emplpyee to employee table
 app.post('/addEmployee', function(req, res){
   pg.connect(connectionString, function(err, client, done){
     var data= req.body;
@@ -99,8 +102,40 @@ app.post('/addEmployee', function(req, res){
     else {
       console.log(data);
       console.log('app.post/addEmployee connected');
-      client.query('INSERT INTO employee (first_name,last_name) VALUES ($1,$2)',[data.first_name,data.last_name]);
+      client.query('INSERT INTO employee (first_name,last_name) VALUES ($1,$2)',[data.firstName,data.lastName]);
       res.sendStatus(200);
     }//else
   });//pg.connect
-});//app.post
+});//app.post addEmployee
+
+//update server id in floor table
+app.post('/changeEmployee', function(req, res){
+  pg.connect(connectionString, function(err, client, done){
+    var data= req.body;
+    if (err){
+      console.log(err);
+    }
+    else {
+      console.log(data);
+      console.log('app.post/changeEmployee connected');
+      client.query('UPDATE floor SET server_id = ($1) WHERE id = ($2)',[data.new_id,data.table_id]);
+      res.sendStatus(200);
+    }//else
+  });//pg.connect
+});//app.post changeEmployee
+
+// update floor status in floor table
+app.post('/changeStatus', function(req, res){
+  pg.connect(connectionString, function(err, client, done){
+    var data= req.body;
+    if (err){
+      console.log(err);
+    }
+    else {
+      console.log(data);
+      console.log('app.post/changeEmployee connected');
+      client.query('UPDATE floor SET status = ($1) WHERE id = ($2)',[data.new_status,data.table_id]);
+      res.sendStatus(200);
+    }//else
+  });//pg.connect
+});//app.post changeStatus
