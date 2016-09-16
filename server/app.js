@@ -4,7 +4,7 @@ var path = require( 'path' );
 var bodyParser= require( 'body-parser' );
 // var urlencodedParser = bodyParser.urlencoded( {extended: false } );
 var pg = require('pg');
-var connectionString ='postgress://localhost:5432/marios_pizza';
+var connectionString = 'postgress://localhost:5432/marios_pizza';
 var port = process.env.PORT || 3030;
 
 //addFloor
