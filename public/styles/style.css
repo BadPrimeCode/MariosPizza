@@ -1,9 +1,6 @@
 body {
     padding-top: 70px;
     /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
-    /*background-image: url(http://wallpapercave.com/wp/kOAxfby.png);*/
-
-    /*background-image: url(https://i.ytimg.com/vi/gn7lS8x0eSg/maxresdefault.jpg);*/
 }
 .navbar-header {
     float: left;
