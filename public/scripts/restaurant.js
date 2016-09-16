@@ -5,6 +5,7 @@ $(document).ready(function() {
     // arrays
     var tables = [];
     var employees = [];
+    var lastAssigned = 0;
 
 
     $('#createEmployee').on('click',function() {
@@ -14,7 +15,7 @@ $(document).ready(function() {
         var employeeLastName = document.getElementById('employeeLastNameIn').value;
         // create object for employee
         var newEmployee = {
-            request: 'from client',
+            // request: 'from client',
             firstName: employeeFirstName,
             lastName: employeeLastName
         }; // end object
@@ -25,6 +26,7 @@ $(document).ready(function() {
             data: newEmployee,
             success: function(data) {
                     console.log('get this back from server:', data);
+                    newEmployee.id = data.id;
                 } // end success
         }); // end ajax
         // push into employees array
@@ -40,10 +42,10 @@ $(document).ready(function() {
         var tableCapacity = document.getElementById('capacityIn').value;
         // table object for new table
         var newTable = {
-            request: 'from client',
+            // request: 'from client',
             'name': tableName,
             'capacity': tableCapacity,
-            'server': -1,
+            // 'server': -1,
             'status': 'empty'
         };
         // ajax call to post route
