@@ -75,7 +75,8 @@ $(document).ready(function() {
 
   }); // end createTable
 
-  var cycleStatus = function(index) {
+  $('body').on('click', '.statusButton', function(){
+    var index = $(this).data('index');
     console.log('in cycleStatus: ' + index);
     // move table status to next status
     switch (tables[index].status) {
@@ -99,20 +100,23 @@ $(document).ready(function() {
       table_name: tables[index].table_name
     };
 
-    // Ajax call not quite working yet
-    // $.ajax({
-    //   type: 'POST',
-    //   url: '/changeStatus',
-    //   data: objectToSend,
-    //   success: function(data) {
-    //     console.log('get this back from server:', data);
-    //     // push into employees array
-    //     console.log(data);
-    //     // update display
-    //     listTables();
-    //   } // end success
-    // });
-    // show tables on DOM
+    $.ajax({
+      type: 'POST',
+      url: '/changeStatus',
+      data: objectToSend,
+      success: function(data) {
+        console.log('get this back from server:', data);
+        // push into employees array
+        console.log(data);
+        // update display
+        listTables();
+      } // end success
+    });
+
+
+  });
+
+  var cycleStatus = function(index) {
 
   }; // end cycleStatus
 
@@ -181,7 +185,7 @@ $(document).ready(function() {
           }
           selectText += '</select>';
           // status is a button that, when clicked runs cycleStatus for this table
-          var line = tables[i].table_name + " - capacity: " + tables[i].capacity + ', server: ' + selectText + ', status: <button onClick="cycleStatus(' + i + ')">' + tables[i].status + "</button>";
+          var line = tables[i].table_name + " - capacity: " + tables[i].capacity + ', server: ' + selectText + ', status: <button class="statusButton" data-index="'+i+'">' + tables[i].status + "</button>";
           // add line to output div
           document.getElementById('tablesOutput').innerHTML += '<p>' + line + '</p>';
         }
