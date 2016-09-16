@@ -96,7 +96,7 @@ $(document).ready(function() {
         // make ajax call to listEmployees route and show results
         // no body needed for get call
         $.ajax({
-          url: '/listEmployees',
+          url: '/currentEmployee',
           type: 'GET',
           success: function( data ){
             // data is returned json array from server
@@ -120,7 +120,7 @@ $(document).ready(function() {
         // make ajax call to listTables route and show results
         // no body needed for get call
         $.ajax({
-          url: '/listTables',
+          url: '/currentFloor',
           type: 'GET',
           success: function( data ){
             // data is returned json array from server
