@@ -13,7 +13,7 @@ var port = process.env.PORT || 3030;
 //currentEmployee
 //changeStatus
 //changeEmployee
-// app.use(bodyParser.urlencoded( {extended: false } ));
+app.use(bodyParser.urlencoded( {extended: false } ));
 app.use(bodyParser.json());
 
 // static folder
@@ -40,11 +40,11 @@ app.get('/currentFloor', function(req,res){
     else {
       console.log('app.post/currentFloor connected');
       var resultsArray=[];
-      var queryResults=client.query('SELECT floor.table_name, floor.capacity, employee.first_name, employee.last_name, floor.status FROM floor LEFT JOIN employee ON floor.server_id=employee.id');
+      var queryResults=client.query('SELECT floor.table_name, floor.capacity, floor.server_id, floor.status FROM floor');
       queryResults.on('row',function(row){
         resultsArray.push(row);
-        console.log(resultsArray);
       });
+      console.log(resultsArray);
       queryResults.on('end',function(){
         done();
         return res.send(resultsArray);
